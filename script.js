@@ -64,19 +64,24 @@ function removeItem(e){
   }
 }
 
-// Filter Items
+//filter items
+var filter = document.getElementById("filter");
+filter.addEventListener("keyup",filterItems);
 function filterItems(e){
-  // convert text to lowercase
-  var text = e.target.value.toLowerCase();
-  // Get lis
-  var items = itemList.getElementsByTagName('li');
-  // Convert to an array
-  Array.from(items).forEach(function(item){
-    var itemName = item.firstChild.textContent;
-    if(itemName.toLowerCase().indexOf(text) != -1){
-      item.style.display = 'block';
-    } else {
-      item.style.display = 'none';
-    }
-  });
+    //get filter text
+    var text = e.target.value.toLowerCase();
+    
+    var items = itemList.getElementsByTagName("li");
+    Array.from(items).forEach((item)=>{
+        console.log(item.childElementCount)
+
+        var itemtext = item.firstChild.textContent;
+        var discriptionText = item.firstChild.nextSibling.textContent;      
+        
+        if(itemtext.toLowerCase().indexOf(text) != -1 || (item.childElementCount > 1 && discriptionText.toLowerCase().indexOf(text) != -1)){
+            item.style.display = "block";
+        }else{
+            item.style.display = "none";
+        }
+    })
 }
